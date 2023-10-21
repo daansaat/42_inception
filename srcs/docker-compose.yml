@@ -1,17 +1,20 @@
+# docker-compose run --rm mariadb mariadb -hmariadb -uexample-user -p
+
 version: '3'
 
 services:
   nginx:
     container_name: nginx
     # image: nginx:stable-alpine
-    image: nginx
     build: ./requirements/nginx
+    image: nginx
     ports: 
-      - 80:80
+      # - 80:80
+      - 443:443
     volumes:
       - ./wordpress:/var/www/html
-      - ./requirements/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
-    restart: unless-stopped
+      # - ./requirements/nginx/conf/default.conf:/etc/nginx/sites-enabled/default
+    # restart: unless-stopped
     
   mariadb:
     container_name: mariadb
@@ -19,13 +22,14 @@ services:
     # image: mariadb
     # build: ./requirements/mariadb
     env_file: .env
-    restart: unless-stopped
+    # restart: unless-stopped
 
   wordpress:
     container_name: wordpress
-    image: php:7.4-fpm-alpine
-    # image: wordpress
-    # build: ./requirements/wordpress
+    # image: php:7.4-fpm-alpine
+    build: ./requirements/wordpress
+    image: wordpress
     volumes:
       - ./wordpress:/var/www/html
-    restart: unless-stopped
+    # restart: unless-stopped
+  
