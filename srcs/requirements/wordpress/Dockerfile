@@ -6,9 +6,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir /run/php
 
-# ADD --chmod=1 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
+ADD --chmod=1 https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
+COPY ./tools/wp_install.sh .
+
+ENTRYPOINT ["./wp_install.sh"]
 
 EXPOSE 9000
 

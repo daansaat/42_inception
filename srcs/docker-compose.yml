@@ -1,5 +1,3 @@
-# docker-compose run --rm mariadb mariadb -hmariadb -uexample-user -p
-
 version: '3'
 
 services:
@@ -8,28 +6,58 @@ services:
     # image: nginx:stable-alpine
     build: ./requirements/nginx
     image: nginx
+    depends_on:
+      - mariadb
+      - wordpress
     ports: 
-      # - 80:80
       - 443:443
     volumes:
-      - ./wordpress:/var/www/html
-      # - ./requirements/nginx/conf/default.conf:/etc/nginx/sites-enabled/default
+      - $HOME/data/wordpress:/var/www/html:delegated
+    networks: 
+      - inception
     # restart: unless-stopped
     
   mariadb:
     container_name: mariadb
-    image: mariadb:latest
-    # image: mariadb
-    # build: ./requirements/mariadb
-    env_file: .env
     # restart: unless-stopped
+    image: mariadb:latest
+    # build: ./requirements/mariadb
+    # image: mariadb
+    env_file: .env
+    # volumes:
+    #   -$HOME/data/mariadb:/var/lib/mysql
+    networks: 
+      - inception
 
   wordpress:
     container_name: wordpress
+    # restart: unless-stopped
     # image: php:7.4-fpm-alpine
     build: ./requirements/wordpress
     image: wordpress
     volumes:
-      - ./wordpress:/var/www/html
-    # restart: unless-stopped
+      - $HOME/data/wordpress:/var/www/html:delegated
+    networks: 
+      - inception
+
+networks:
+  inception:
+    driver: bridge
+
+# volumes:
+#   wordpress_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: $HOME/data/wordpress
   
+#   mariadb_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       o: bind
+#       device: $HOME/data/mariadb
+
+# docker-compose run --rm mariadb mariadb -hmariadb -uexample-user -p
+# docker-compose run --rm wordpress (wp user list)
