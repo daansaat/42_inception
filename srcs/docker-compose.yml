@@ -6,12 +6,14 @@ services:
     # image: nginx:stable-alpine
     build: ./requirements/nginx
     image: nginx
+    env_file: .env
     depends_on:
       - mariadb
       - wordpress
     ports: 
       - 443:443
     volumes:
+      # - ./wordpress:/var/www/html:delegated
       - $HOME/data/wordpress:/var/www/html:delegated
     networks: 
       - inception
@@ -35,10 +37,11 @@ services:
     # image: php:7.4-fpm-alpine
     build: ./requirements/wordpress
     image: wordpress
+    env_file: .env
     depends_on:
       - mariadb
-    env_file: .env
     volumes:
+      # - ./wordpress:/var/www/html:delegated
       - $HOME/data/wordpress:/var/www/html:delegated
     networks: 
       - inception
