@@ -24,8 +24,8 @@ services:
     # build: ./requirements/mariadb
     # image: mariadb
     env_file: .env
-    # volumes:
-    #   -$HOME/data/mariadb:/var/lib/mysql
+    volumes:
+      - $HOME/data/mariadb:/var/lib/mysql
     networks: 
       - inception
 
@@ -35,6 +35,9 @@ services:
     # image: php:7.4-fpm-alpine
     build: ./requirements/wordpress
     image: wordpress
+    depends_on:
+      - mariadb
+    env_file: .env
     volumes:
       - $HOME/data/wordpress:/var/www/html:delegated
     networks: 
