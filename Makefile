@@ -1,4 +1,6 @@
 all:
+		mkdir -p $(HOME)/data/wordpress
+		mkdir -p $(HOME)/data/mariadb
 		docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
@@ -11,14 +13,6 @@ clean: down
 
 fclean: clean
 	docker system prune --all --force
-# docker rmi $$(docker images -q)
-# rm -rf $(HOME)/data/wordpress
-# rm -rf $(HOME)/data/mariadb
-
-# fclean:	down clean
-# 		docker system prune --all --force --volumes
-# 		rm -rf $(HOME)/data/wordpress
-# 		rm -rf $(HOME)/data/mariadb
 
 re:	fclean all
 
