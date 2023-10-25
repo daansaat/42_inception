@@ -5,7 +5,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	cd /var/www/html
 	wp core download --allow-root
 	wp core install --allow-root --skip-email \
-		--url=$DOMAIN_NAME \
+		--url=https://$DOMAIN_NAME \
 		--title=$WP_TITLE \
 		--admin_user=$WP_ADMIN \
 		--admin_password=$WP_ADMIN_PASSWORD \

@@ -1,13 +1,13 @@
 all:
-		mkdir -p $(HOME)/data/wordpress
-		mkdir -p $(HOME)/data/mariadb
-		docker compose -f ./srcs/docker-compose.yml up -d --build
+	mkdir -p $(HOME)/data/wordpress
+	mkdir -p $(HOME)/data/mariadb
+	docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
-		docker compose -f ./srcs/docker-compose.yml down
+	docker compose -f ./srcs/docker-compose.yml down
 
 clean: down
-		docker system prune --force
+	docker system prune --force
 
 fclean: clean
 	docker system prune --all --force
