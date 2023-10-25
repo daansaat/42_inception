@@ -4,7 +4,6 @@ services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx
-    image: nginx
     restart: unless-stopped
     env_file: .env
     depends_on:
@@ -20,7 +19,6 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    image: mariadb
     restart: unless-stopped
     env_file: .env
     volumes:
@@ -31,7 +29,6 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    image: wordpress
     restart: unless-stopped
     env_file: .env
     depends_on:
