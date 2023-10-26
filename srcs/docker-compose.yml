@@ -8,7 +8,6 @@ services:
     restart: unless-stopped
     env_file: .env
     depends_on:
-      - mariadb
       - wordpress
     ports: 
       - 443:443
