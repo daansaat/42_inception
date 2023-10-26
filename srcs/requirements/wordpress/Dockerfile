@@ -11,7 +11,8 @@ RUN apt-get update; \
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 
-COPY ./conf/wp-config.php .
+COPY ./conf/wp-config.php ./var/www/html/wp-config.php
+# COPY ./conf/wp-config.php .
 
 COPY --chmod=1 ./tools/entrypoint.sh ./usr/local/bin
 

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ ! -f /var/www/html/wp-config.php ]; then
-	mv wp-config.php /var/www/html/wp-config.php
+
+# if [ ! -f /var/www/html/wp-config.php ]; then
+if ! wp core is-installed; then
+	# mv wp-config.php /var/www/html/wp-config.php
 	cd /var/www/html
 	wp core download --allow-root
 	wp core install --allow-root --skip-email \
